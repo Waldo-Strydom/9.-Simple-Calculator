@@ -23,27 +23,17 @@ function buildArr(){
 
     let mathArr=[]
     let tot =0
-    
+    let long = ""
     if(calString[0]=="0" || calString[0]=="1" || calString[0]=="2" || calString[0]=="3" || calString[0]=="4" || calString[0]=="5" || calString[0]=="6" || calString[0]=="7" || calString[0]=="8" || calString[0]=="9"){
         mathArr.push("+")
     }
 
-    for(let i=0;i<=calString.length-1;i++){
-            let e = calString[i]
-              
-        switch(true){
-            case e=="00" || e=="0" || e=="1" || e=="2" ||e=="3" || e=="4" || e=="5" || e=="6" ||e=="7" || e=="8" || e=="9":
-                mathArr.push(parseInt(e))
-           
-            break;
-            case e=="+":
-                mathArr.push("+")
+    mathArr = calString.split(" ")
 
-            break;    
-        }
-    }
 
-    removePlus(mathArr,tot)
+    console.log(mathArr)
+    console.log(typeof(mathArr[0]))
+    // removePlus(mathArr,tot)
 
 }
 
@@ -94,6 +84,7 @@ function addOpperator(opp){
             display()
         break;
         default:
+            calString+=" "
             calString+=opp
             display()                
     }
