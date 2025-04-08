@@ -15,11 +15,20 @@ body{
     border-radius: 0.9rem;
 }
 
+@font-face {
+    font-family: digital;
+    src: url("./fonts/E1234.ttf");
+}
+
 #screen{
     grid-column: 1/-1;
     grid-row: 1/1;
-    background-color: rgb(4, 110, 11);
+    background-image: linear-gradient(rgb(4, 110, 11), rgb(2, 61, 6));
     border: 2px solid rgb(3, 3, 2);
+}
+
+#screenText{
+    font-family: digital;
 }
 
 .btnRow{
@@ -53,6 +62,7 @@ body{
 button{
     font-weight: bold;
     color: rgb(237, 235, 235);
+    cursor: pointer;
 }
 
 .num{
