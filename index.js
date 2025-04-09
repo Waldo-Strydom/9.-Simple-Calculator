@@ -33,33 +33,139 @@ function buildArr(){
 
     console.log(mathArr)
     console.log(typeof(mathArr[0]))
-    // removePlus(mathArr,tot)
-
+    
+    squareRoot(mathArr)
 }
 
-function removePlus(mathArr, tot){ 
-console.log("removed")
-if(mathArr.length!=0){
-   console.log(mathArr) 
-   
-   for(let j =0; j<mathArr.length-1;j++){
+function squareRoot(mathArr){
+
+ for(let i =0; i<=mathArr.length-1;i++){
+
+    if(mathArr[i].includes("√")){
+    
+        let a = mathArr[i].replace("√", "")
+        a = Math.sqrt(parseFloat(a))
+        a=a.toString()
+        mathArr[i]=a
+        console.log(mathArr)
+  
 
 
-    if(mathArr[j]=="+"){
-        tot+=mathArr[j+1]
-        mathArr.splice(j, 2)
-        removeFromArr(mathArr,tot)
+ }
+
+
+ 
+}
+division(mathArr)
+}
+function division(mathArr){
+    for(let i =0; i<=mathArr.length-1;i++){
+
+        if(mathArr[i].includes("/")){
+        
+            let a = mathArr[i].replace("/", "")
+            a = parseFloat(a)
+            let b = parseFloat(mathArr[i-1])
+            let c = b / a
+            c=c.toString()
+            mathArr[i]=c
+            // mathArr[i-1]=""
+            mathArr.splice(i-1,1)
+            console.log(mathArr)
+    
+        }
+    
+    
+     }
+    
+     multiplication(mathArr)
+}
+
+function multiplication(mathArr){
+    for(let i =0; i<=mathArr.length-1;i++){
+
+        if(mathArr[i].includes("X")){
+        
+            let a = mathArr[i].replace("X", "")
+            a = parseFloat(a)
+            let b = parseFloat(mathArr[i-1])
+            let c = b * a
+            c=c.toString()
+            mathArr[i]=c
+            // mathArr[i-1]=""
+            mathArr.splice(i-1,1)
+            console.log(mathArr)
+    
+        }
+    
+    
+     }
+     addition(mathArr)
+}
+
+function addition(mathArr){
+    for(let i =0; i<=mathArr.length-1;i++){
+        console.log(mathArr)
+        if(mathArr[i].includes("+")){
+        
+            let a = mathArr[i].replace("+", "")
+            a = parseFloat(a)
+            let b = parseFloat(mathArr[i-1])
+            let c = b + a
+            c=c.toString()
+            mathArr[i]=c
+            mathArr[i-1]=""
+            mathArr.splice(i-1,1)
+            console.log(mathArr)
+    
+        }
+    
+    
+     }
+     subtraction(mathArr)
+}
+
+function subtraction(mathArr){
+    for(let i =0; i<=mathArr.length-1;i++){
+
+        if(mathArr[i].includes("-")){
+        
+            let a = mathArr[i].replace("-", "")
+            a = parseFloat(a)
+            let b = parseFloat(mathArr[i-1])
+            let c = b - a
+            c=c.toString()
+            mathArr[i]=c
+            // mathArr[i-1]=""
+            mathArr.splice(i-1,1)
+            console.log(mathArr)
+    
+        }
+    
+     }
+    finished(mathArr)
+}
+
+function clearArr(mathArr){
+
+    for(let i =0; i<=mathArr.length-1;i++){
+    
+    if(mathArr[i].includes('') || mathArr[i].includes(" ")){
+        mathArr.splice(i,1)
     }
-   }
-
-
-}else{
-    calString=tot
-    display()
+}
+squareRoot(mathArr)
 }
 
-
-
+function finished(mathArr){
+if(mathArr.length==1){
+    calString=mathArr[0]
+    display()
+}else{
+    clearArr(mathArr)
+    
+  
+}
 }
 
 function addOpperator(opp){
@@ -73,7 +179,7 @@ function addOpperator(opp){
             }
             
         break;
-        case calString[calString.length-1]=="%"|| calString[calString.length-1]=="√" || calString[calString.length-1]=="X" || calString[calString.length-1]=="÷":
+        case calString[calString.length-1]=="%"|| calString[calString.length-1]=="√" || calString[calString.length-1]=="X" || calString[calString.length-1]=="/":
             alert("You cannot follow one opperator after another")
             break;
         case calString.length>=14:
@@ -109,6 +215,6 @@ const oppBtns = document.querySelectorAll(".operator")
 
 oppBtns.forEach((e)=>{
     e.addEventListener("click", ()=>{
-        addOpperator(e.innerHTML)
+        addOpperator(e.id)
     })
 })
