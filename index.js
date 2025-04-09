@@ -22,14 +22,25 @@ alert("Max length reached")
 function buildArr(){
 
     let mathArr=[]
-    let tot =0
-    let long = ""
-    if(calString[0]=="0" || calString[0]=="1" || calString[0]=="2" || calString[0]=="3" || calString[0]=="4" || calString[0]=="5" || calString[0]=="6" || calString[0]=="7" || calString[0]=="8" || calString[0]=="9"){
-        mathArr.push("+")
-    }
+
+    // if(calString[0]=="+"){
+
+    //    calString= calString.replace(calString[0], "") 
+    // }
+    
+
+    // if(calString[0]=="0" || calString[0]=="1" || calString[0]=="2" || calString[0]=="3" || calString[0]=="4" || calString[0]=="5" || calString[0]=="6" || calString[0]=="7" || calString[0]=="8" || calString[0]=="9"){
+    //     // mathArr.unshift("+")
+    //     calString= "+"+calString
+    // }
+
+    // if( calString[0]=="-"){
+    //     console.log("ran")
+    //     // mathArr.unshift("0")
+    //     calString= "0 "+calString
+    // }
 
     mathArr = calString.split(" ")
-
 
     console.log(mathArr)
     console.log(typeof(mathArr[0]))
@@ -171,23 +182,34 @@ if(mathArr.length==1){
 function addOpperator(opp){
 
     switch(true){
+        case opp=="+":
+            if(calString.length==0){
+                alert("You cannot start with +")
+            }else{
+                calString+=" "
+                calString+=opp
+                display()
+            }
+            break;
         case opp=="=":
-            if(calString[calString.length-1]=="0" || calString[calString.length-1]=="1" || calString[calString.length-1]=="2" || calString[calString.length-1]=="3" || calString[calString.length-1]=="4" || calString[calString.length-1]=="5" || calString[calString.length-1]=="6" || calString[calString.length-1]=="7" || calString[calString.length-1]=="8" || calString[calString.length-1]=="9"){
+            if(calString[calString.length-1]=="0" || calString[calString.length-1]=="1" || calString[calString.length-1]=="2" || calString[calString.length-1]=="3" || calString[calString.length-1]=="4" || calString[calString.length-1]=="5" || calString[calString.length-1]=="6" || calString[calString.length-1]=="7" || calString[calString.length-1]=="8" || calString[calString.length-1]=="9" || calString[calString.length-1]=="%"){
             buildArr()
             }else{
                 alert("cannot end on an opperator")
             }
             
         break;
-        case calString[calString.length-1]=="%"|| calString[calString.length-1]=="√" || calString[calString.length-1]=="X" || calString[calString.length-1]=="/":
+        case  calString[calString.length-1]=="√" || calString[calString.length-1]=="X" || calString[calString.length-1]=="/":
             alert("You cannot follow one opperator after another")
             break;
         case calString.length>=14:
             alert("Max length reached")
         break;
         case opp=="C":
-            calString="0"
-            display()
+            calString=""
+            const out = document.getElementById("screenText")
+            out.innerHTML="0"
+            // display()
         break;
         default:
             calString+=" "
