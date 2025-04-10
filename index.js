@@ -23,24 +23,13 @@ function buildArr(){
 
     let mathArr=[]
 
-    // if(calString[0]=="+"){
-
-    //    calString= calString.replace(calString[0], "") 
-    // }
-    
-
-    // if(calString[0]=="0" || calString[0]=="1" || calString[0]=="2" || calString[0]=="3" || calString[0]=="4" || calString[0]=="5" || calString[0]=="6" || calString[0]=="7" || calString[0]=="8" || calString[0]=="9"){
-    //     // mathArr.unshift("+")
-    //     calString= "+"+calString
-    // }
-
-    // if( calString[0]=="-"){
-    //     console.log("ran")
-    //     // mathArr.unshift("0")
-    //     calString= "0 "+calString
-    // }
-
     mathArr = calString.split(" ")
+
+    for(let i = 0;i<mathArr.length;i++){
+        if(mathArr[i]=="%"){
+            mathArr[i]="/100"
+        }
+    }
 
     console.log(mathArr)
     console.log(typeof(mathArr[0]))
@@ -76,11 +65,34 @@ function division(mathArr){
         
             let a = mathArr[i].replace("/", "")
             a = parseFloat(a)
-            let b = parseFloat(mathArr[i-1])
+            console.log(a)
+            let b = mathArr[i-1]
+            console.log(b[0])
+            let symbol=""
+            if(b[0]=="X" || b[0]=="/"){
+                console.log("nan")
+                symbol=b[0]
+                let x = ""
+                for(let i =1;i<=b.length-1;i++){
+                    x+=b[i]
+                    console.log(x)
+                }
+                b=x
+                console.log(b)
+                mathArr[i-1]=b
+                b=parseFloat(mathArr[i-1])
+
+            }
+
+            console.log(b)
+            console.log(typeof(b))
             let c = b / a
             c=c.toString()
+            if(symbol!=""){
+                c=symbol+c
+            }
             mathArr[i]=c
-            // mathArr[i-1]=""
+            
             mathArr.splice(i-1,1)
             console.log(mathArr)
     
