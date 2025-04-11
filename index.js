@@ -1,5 +1,7 @@
 
 let calString = ""
+let squareRootDone=false;
+let additionDone = false;
 
 function display(){
     const out = document.getElementById("screenText")
@@ -24,7 +26,7 @@ function buildArr(){
     let mathArr=[]
 
     mathArr = calString.split(" ")
-
+    console.log(mathArr)
     for(let i = 0;i<mathArr.length;i++){
         if(mathArr[i]=="%"){
             mathArr[i]="/100"
@@ -59,7 +61,7 @@ function buildArr(){
 }
 
 function squareRoot(mathArr){
-
+squareRootDone=true
  for(let i =0; i<=mathArr.length-1;i++){
 
     if(mathArr[i].includes("√")){
@@ -69,7 +71,7 @@ function squareRoot(mathArr){
         a=a.toString()
         mathArr[i]=a
         console.log(mathArr)
-  
+        squareRootDone=false
 
 
  }
@@ -77,7 +79,15 @@ function squareRoot(mathArr){
 
  
 }
-division(mathArr)
+if(squareRootDone){
+    console.log("done")
+    division(mathArr)
+ }else{
+    console.log("rep")
+    squareRoot(mathArr)
+ }
+
+
 }
 function division(mathArr){
     for(let i =0; i<=mathArr.length-1;i++){
@@ -148,6 +158,8 @@ function multiplication(mathArr){
 }
 
 function addition(mathArr){
+    additionDone=true
+
     for(let i =0; i<=mathArr.length-1;i++){
         console.log(mathArr)
         if(mathArr[i].includes("+")){
@@ -161,15 +173,30 @@ function addition(mathArr){
             mathArr[i-1]=""
             mathArr.splice(i-1,1)
             console.log(mathArr)
-    
+
+
+            additionDone=false
+        }else{
+            
         }
     
     
      }
-     subtraction(mathArr)
+
+
+
+     if(additionDone){
+        console.log("done")
+        subtraction(mathArr)
+     }else{
+        console.log("rep")
+        addition(mathArr)
+     }
+     
 }
 
 function subtraction(mathArr){
+    console.log("sub")
     for(let i =0; i<=mathArr.length-1;i++){
 
         if(mathArr[i].includes("-")){
@@ -198,10 +225,11 @@ function clearArr(mathArr){
         mathArr.splice(i,1)
     }
 }
-squareRoot(mathArr)
+// squareRoot(mathArr)
 }
 
 function finished(mathArr){
+    console.log("fin")
 if(mathArr.length==1){
     calString=mathArr[0]
     display()
