@@ -29,10 +29,31 @@ function buildArr(){
         if(mathArr[i]=="%"){
             mathArr[i]="/100"
         }
+
+        if(mathArr[i]=="+"|| mathArr[i]=="-"){
+            console.log(mathArr[i])
+                mathArr.splice(i,1)
+                console.log(mathArr)
+                let a = parseFloat(mathArr[i])
+                if(a<0){
+                    
+                    a=a*-1
+                    a="+"+a
+                    console.log(a)
+                    mathArr[i]=a
+                    console.log(mathArr)
+                }
+                
+
+
+
+        }
+        
+
+
     }
 
-    console.log(mathArr)
-    console.log(typeof(mathArr[0]))
+
     
     squareRoot(mathArr)
 }
