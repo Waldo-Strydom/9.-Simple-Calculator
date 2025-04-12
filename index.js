@@ -292,9 +292,9 @@ if(mathArr.length==1){
 function addOpperator(opp){
 
     switch(true){
-        case opp=="+":
+        case opp=="X" || opp=="/" || opp=="%":
             if(calString.length==0){
-                alert("You cannot start with +")
+                alert("You cannot start with opperator")
             }else{
                 calString+=" "
                 calString+=opp
