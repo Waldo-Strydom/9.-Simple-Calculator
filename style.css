@@ -70,6 +70,6 @@ button{
     background-color: rgb(105, 102, 102);
 }
 
-.operator{
+.operator, #C{
     background-color:rgb(110, 4, 6) ;
 }

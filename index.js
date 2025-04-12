@@ -1,7 +1,10 @@
 
 let calString = ""
 let squareRootDone=false;
+let divisionDone=false;
+let multiplicationDone = false;
 let additionDone = false;
+let subtractionDone = false;
 
 function display(){
     const out = document.getElementById("screenText")
@@ -62,6 +65,7 @@ function buildArr(){
 
 function squareRoot(mathArr){
 squareRootDone=true
+
  for(let i =0; i<=mathArr.length-1;i++){
 
     if(mathArr[i].includes("√")){
@@ -69,8 +73,10 @@ squareRootDone=true
         let a = mathArr[i].replace("√", "")
         a = Math.sqrt(parseFloat(a))
         a=a.toString()
+        // a="+"+a
         mathArr[i]=a
         console.log(mathArr)
+
         squareRootDone=false
 
 
@@ -90,6 +96,7 @@ if(squareRootDone){
 
 }
 function division(mathArr){
+    divisionDone=true;
     for(let i =0; i<=mathArr.length-1;i++){
 
         if(mathArr[i].includes("/")){
@@ -113,6 +120,8 @@ function division(mathArr){
                 mathArr[i-1]=b
                 b=parseFloat(mathArr[i-1])
 
+                divisionDone=false
+
             }
 
             console.log(b)
@@ -131,11 +140,20 @@ function division(mathArr){
     
     
      }
+
+     if(divisionDone){
+        console.log("done")
+        multiplication(mathArr)
+     }else{
+        console.log("rep")
+        division(mathArr)
+     }
     
-     multiplication(mathArr)
+     
 }
 
 function multiplication(mathArr){
+    multiplicationDone=true
     for(let i =0; i<=mathArr.length-1;i++){
 
         if(mathArr[i].includes("X")){
@@ -149,12 +167,22 @@ function multiplication(mathArr){
             // mathArr[i-1]=""
             mathArr.splice(i-1,1)
             console.log(mathArr)
-    
+            multiplicationDone=false
         }
     
     
      }
-     addition(mathArr)
+
+
+     if(multiplicationDone){
+        console.log("done")
+        addition(mathArr)
+     }else{
+        console.log("rep")
+        multiplication(mathArr)
+     }
+     
+    
 }
 
 function addition(mathArr){
@@ -196,6 +224,7 @@ function addition(mathArr){
 }
 
 function subtraction(mathArr){
+    subtractionDone=true
     console.log("sub")
     for(let i =0; i<=mathArr.length-1;i++){
 
@@ -210,22 +239,42 @@ function subtraction(mathArr){
             // mathArr[i-1]=""
             mathArr.splice(i-1,1)
             console.log(mathArr)
+            subtractionDone=false
     
         }
     
      }
-    finished(mathArr)
+
+     if(subtractionDone){
+        console.log("done")
+        finished(mathArr)
+     }else{
+        console.log("rep")
+        subtraction(mathArr)
+     }
+
+
+   
 }
 
 function clearArr(mathArr){
-
+    console.log("clear")
     for(let i =0; i<=mathArr.length-1;i++){
     
-    if(mathArr[i].includes('') || mathArr[i].includes(" ")){
+    if(mathArr[i]=='' || mathArr[i]==" "){
+        console.log(mathArr[i])
         mathArr.splice(i,1)
     }
 }
-// squareRoot(mathArr)
+console.log(mathArr)
+
+let tot =0
+for(let i=0; i<mathArr.length;i++){
+    tot+=parseFloat(mathArr[i])
+}
+
+calString=tot.toString()
+display()
 }
 
 function finished(mathArr){
@@ -255,7 +304,9 @@ function addOpperator(opp){
         case opp=="=":
             if(calString[calString.length-1]=="0" || calString[calString.length-1]=="1" || calString[calString.length-1]=="2" || calString[calString.length-1]=="3" || calString[calString.length-1]=="4" || calString[calString.length-1]=="5" || calString[calString.length-1]=="6" || calString[calString.length-1]=="7" || calString[calString.length-1]=="8" || calString[calString.length-1]=="9" || calString[calString.length-1]=="%"){
             buildArr()
-            }else{
+
+             }else{
+                console.log(opp)
                 alert("cannot end on an opperator")
             }
             
@@ -265,12 +316,6 @@ function addOpperator(opp){
             break;
         case calString.length>=14:
             alert("Max length reached")
-        break;
-        case opp=="C":
-            calString=""
-            const out = document.getElementById("screenText")
-            out.innerHTML="0"
-            // display()
         break;
         default:
             calString+=" "
@@ -301,3 +346,11 @@ oppBtns.forEach((e)=>{
         addOpperator(e.id)
     })
 })
+
+const clearBtn = document.getElementById("C")
+
+clearBtn.addEventListener("click", ()=>{
+    calString=""
+    const out = document.getElementById("screenText")
+    out.innerHTML="0"
+} )
