@@ -29,24 +29,24 @@ function buildArr(){
     let mathArr=[]
 
     mathArr = calString.split(" ")
-    console.log(mathArr)
+
     for(let i = 0;i<mathArr.length;i++){
         if(mathArr[i]=="%"){
             mathArr[i]="/100"
         }
 
         if(mathArr[i]=="+"|| mathArr[i]=="-"){
-            console.log(mathArr[i])
+
                 mathArr.splice(i,1)
-                console.log(mathArr)
+
                 let a = parseFloat(mathArr[i])
                 if(a<0){
                     
                     a=a*-1
                     a="+"+a
-                    console.log(a)
+
                     mathArr[i]=a
-                    console.log(mathArr)
+
                 }
                 
 
@@ -59,7 +59,7 @@ function buildArr(){
     }
 
 
-    
+    clearArr(mathArr)
     squareRoot(mathArr)
 }
 
@@ -73,9 +73,9 @@ squareRootDone=true
         let a = mathArr[i].replace("√", "")
         a = Math.sqrt(parseFloat(a))
         a=a.toString()
-        // a="+"+a
+
         mathArr[i]=a
-        console.log(mathArr)
+
 
         squareRootDone=false
 
@@ -86,10 +86,10 @@ squareRootDone=true
  
 }
 if(squareRootDone){
-    console.log("done")
+
     division(mathArr)
  }else{
-    console.log("rep")
+
     squareRoot(mathArr)
  }
 
@@ -100,23 +100,23 @@ function division(mathArr){
     for(let i =0; i<=mathArr.length-1;i++){
 
         if(mathArr[i].includes("/")){
-        
+            if(i!=0){
             let a = mathArr[i].replace("/", "")
             a = parseFloat(a)
-            console.log(a)
+
             let b = mathArr[i-1]
-            console.log(b[0])
+
             let symbol=""
             if(b[0]=="X" || b[0]=="/"){
-                console.log("nan")
+
                 symbol=b[0]
                 let x = ""
                 for(let i =1;i<=b.length-1;i++){
                     x+=b[i]
-                    console.log(x)
+
                 }
                 b=x
-                console.log(b)
+  
                 mathArr[i-1]=b
                 b=parseFloat(mathArr[i-1])
 
@@ -124,8 +124,7 @@ function division(mathArr){
 
             }
 
-            console.log(b)
-            console.log(typeof(b))
+
             let c = b / a
             c=c.toString()
             if(symbol!=""){
@@ -134,18 +133,18 @@ function division(mathArr){
             mathArr[i]=c
             
             mathArr.splice(i-1,1)
-            console.log(mathArr)
+
     
         }
     
-    
+        }
      }
 
      if(divisionDone){
-        console.log("done")
+
         multiplication(mathArr)
      }else{
-        console.log("rep")
+
         division(mathArr)
      }
     
@@ -158,27 +157,29 @@ function multiplication(mathArr){
 
         if(mathArr[i].includes("X")){
         
+            if(i!=0){
+
             let a = mathArr[i].replace("X", "")
             a = parseFloat(a)
             let b = parseFloat(mathArr[i-1])
             let c = b * a
             c=c.toString()
             mathArr[i]=c
-            // mathArr[i-1]=""
+
             mathArr.splice(i-1,1)
-            console.log(mathArr)
+
             multiplicationDone=false
         }
     
-    
+        }
      }
 
 
      if(multiplicationDone){
-        console.log("done")
+
         addition(mathArr)
      }else{
-        console.log("rep")
+
         multiplication(mathArr)
      }
      
@@ -189,9 +190,9 @@ function addition(mathArr){
     additionDone=true
 
     for(let i =0; i<=mathArr.length-1;i++){
-        console.log(mathArr)
+
         if(mathArr[i].includes("+")){
-        
+            if(i!=0){
             let a = mathArr[i].replace("+", "")
             a = parseFloat(a)
             let b = parseFloat(mathArr[i-1])
@@ -200,24 +201,22 @@ function addition(mathArr){
             mathArr[i]=c
             mathArr[i-1]=""
             mathArr.splice(i-1,1)
-            console.log(mathArr)
+ 
 
 
             additionDone=false
-        }else{
-            
         }
-    
+        }
     
      }
 
 
 
      if(additionDone){
-        console.log("done")
+
         subtraction(mathArr)
      }else{
-        console.log("rep")
+        
         addition(mathArr)
      }
      
@@ -225,31 +224,32 @@ function addition(mathArr){
 
 function subtraction(mathArr){
     subtractionDone=true
-    console.log("sub")
+
     for(let i =0; i<=mathArr.length-1;i++){
 
         if(mathArr[i].includes("-")){
-        
+        if(i!=0){
             let a = mathArr[i].replace("-", "")
             a = parseFloat(a)
             let b = parseFloat(mathArr[i-1])
             let c = b - a
             c=c.toString()
             mathArr[i]=c
-            // mathArr[i-1]=""
+
             mathArr.splice(i-1,1)
-            console.log(mathArr)
+ 
             subtractionDone=false
     
         }
     
      }
+    }
 
      if(subtractionDone){
-        console.log("done")
+
         finished(mathArr)
      }else{
-        console.log("rep")
+
         subtraction(mathArr)
      }
 
@@ -258,15 +258,15 @@ function subtraction(mathArr){
 }
 
 function clearArr(mathArr){
-    console.log("clear")
+
     for(let i =0; i<=mathArr.length-1;i++){
     
     if(mathArr[i]=='' || mathArr[i]==" "){
-        console.log(mathArr[i])
-        mathArr.splice(i,1)
+
+        mathArr[i]="0"
     }
 }
-console.log(mathArr)
+
 
 let tot =0
 for(let i=0; i<mathArr.length;i++){
@@ -278,7 +278,7 @@ display()
 }
 
 function finished(mathArr){
-    console.log("fin")
+
 if(mathArr.length==1){
     calString=mathArr[0]
     display()
@@ -306,7 +306,7 @@ function addOpperator(opp){
             buildArr()
 
              }else{
-                console.log(opp)
+
                 alert("cannot end on an opperator")
             }
             
